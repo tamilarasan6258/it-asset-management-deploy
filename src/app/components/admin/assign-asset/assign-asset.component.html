@@ -1,0 +1,46 @@
+<div class="assign-asset-container">
+  <h2 class="page-title">🛠 Assign Assets to Approved Requests</h2>
+
+  <div *ngIf="loading">Loading assets...</div>
+  <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+  <p *ngIf="successMsg" class="success">{{ successMsg }}</p>
+
+  <table *ngIf="!loading && approvedRequests.length" class="assign-table">
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>Asset Category</th>
+        <th>Reason</th>
+        <th>Assign Asset</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let req of approvedRequests">
+        <td>{{ req.user?.name }}</td>
+        <td>{{ req.asset_category }}</td>
+        <td>{{ req.reason }}</td>
+        <td>
+          <div class="dropdown-wrapper">
+            <input type="text" placeholder="Search asset..." (input)="handleSearch($event, req._id)"
+              [value]="selectedAssets[req._id] ? getAssetLabel(req._id, selectedAssets[req._id]) : ''"
+              (focus)="showDropdown[req._id] = true" (blur)="hideDropdown(req._id)" class="asset-search-input" />
+            <ul class="dropdown-list" *ngIf="showDropdown[req._id]">
+              <li *ngFor="let asset of filteredAssets[req._id]" (mousedown)="selectAsset(req._id, asset)">
+                {{ asset.asset_id }} ({{ asset.condition }})
+              </li>
+            </ul>
+            <div class="error" *ngIf="assetErrors[req._id]">
+              {{ assetErrors[req._id] }}
+            </div>
+          </div>
+        </td>
+        <td>
+          <button (click)="assignAsset(req._id)" class="button-assign">📋 Assign</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!loading && !approvedRequests.length" class="no-results">No admin-approved requests pending assignment.</p>
+</div>

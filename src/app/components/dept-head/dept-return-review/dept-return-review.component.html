@@ -1,0 +1,47 @@
+<div class="dept-return-review-container">
+  <h2 class="page-title">📝 Department Return Requests</h2>
+
+  <div *ngIf="!returns.length && !successMsg" class="no-requests">
+    <div class="empty-state">
+      <div class="empty-icon">📋</div>
+      <h3>No Return Requests</h3>
+      <p>There are currently no pending return requests for your department.</p>
+    </div>
+  </div>
+
+  <table class="table" *ngIf="returns.length">
+    <thead>
+      <tr>
+        <th>Asset</th>
+        <th>Employee</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of returns">
+        <td>
+          <div class="asset-info">
+            <div class="asset-name">{{ r.asset_id?.asset_name }}</div>
+            <div class="asset-id">ID: {{ r.asset_id?.asset_id }}</div>
+          </div>
+        </td>
+        <td>
+          <div class="employee-info">
+            <span class="employee-name">{{ r.assignedTo?.name }}</span>
+          </div>
+        </td>
+        <td>
+          <button class="approve-btn" (click)="approveReturn(r._id)">
+            <span class="btn-icon">✅</span>
+            <span class="btn-text">Approve</span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="success-message" *ngIf="successMsg">
+    <div class="success-icon">🎉</div>
+    <p class="success">{{ successMsg }}</p>
+  </div>
+</div>

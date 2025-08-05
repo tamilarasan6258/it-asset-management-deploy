@@ -1,0 +1,87 @@
+<app-header role="guest"></app-header>
+
+<main class="login-page">
+  <!-- Background Elements -->
+  <div class="login-background">
+    <div class="geometric-shape shape-1"></div>
+    <div class="geometric-shape shape-2"></div>
+    <div class="geometric-shape shape-3"></div>
+  </div>
+
+  <div class="login-wrapper">
+    <div class="login-container fade-in">
+      <!-- Header Section -->
+      <div class="login-header">
+        <div class="login-icon">
+          <span class="icon-emoji">🔐</span>
+        </div>
+        <h2>Welcome Back!</h2>
+        <p class="login-subtitle">Sign in to access your IT Asset Management dashboard</p>
+      </div>
+
+      <!-- Login Form -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group">
+          <div class="input-wrapper">
+            <span class="input-icon">📧</span>
+            <input type="email" formControlName="email" placeholder="Enter your email" class="form-input"
+              [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" />
+          </div>
+          <div class="field-error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</span>
+            <span *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input type="password" formControlName="password" placeholder="Enter your password" class="form-input"
+              [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" />
+          </div>
+          <div class="field-error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
+            <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+            <span *ngIf="loginForm.get('password')?.errors?.['pattern']">Must include uppercase, lowercase, number, and
+              special character</span>
+
+
+          </div>
+        </div>
+
+        <!-- Inside the login form (below password field) -->
+        <div class="form-group text-right">
+          <a routerLink="/forgot-password" class="forgot-password-link">Forgot Password?</a>
+        </div>
+
+
+        <div class="form-group">
+          <button type="submit" class="login-btn" [disabled]="loading || loginForm.invalid" [class.loading]="loading">
+            <span class="btn-content" *ngIf="!loading">
+              <span class="btn-icon">🚀</span>
+              Sign In
+            </span>
+            <span class="btn-loading" *ngIf="loading">
+              <span class="spinner"></span>
+              Signing in...
+            </span>
+          </button>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" *ngIf="errorMessage">
+          <span class="error-icon">⚠️</span>
+          {{ errorMessage }}
+        </div>
+      </form>
+
+      <!-- Footer -->
+      <div class="login-footer">
+        <p class="help-text">
+          Need help? Contact your system administrator
+        </p>
+
+      </div>
+    </div>
+  </div>
+</main>

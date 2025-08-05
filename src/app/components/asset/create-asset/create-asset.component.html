@@ -1,0 +1,74 @@
+<div class="create-asset-container">
+  <h2 class="page-title">🏭 Create New Asset</h2>
+
+  <form [formGroup]="assetForm" (ngSubmit)="onSubmit()">
+    <!-- Asset Name -->
+    <div class="form-group">
+      <label>🏷️ Asset Name</label>
+      <input formControlName="asset_name" type="text" placeholder="Enter asset name..." />
+      <div class="error" *ngIf="assetForm.get('asset_name')?.touched && assetForm.get('asset_name')?.invalid">
+        <small *ngIf="assetForm.get('asset_name')?.errors?.['required']">Asset name is required</small>
+        <small *ngIf="assetForm.get('asset_name')?.errors?.['pattern']">Min 3 chars, only letters/numbers/spaces</small>
+      </div>
+    </div>
+
+    <!-- Asset ID -->
+    <div class="form-group">
+      <label>🆔 Asset ID</label>
+      <input formControlName="asset_id" type="text" placeholder="Enter unique asset ID..." />
+      <div class="error" *ngIf="assetForm.get('asset_id')?.touched && assetForm.get('asset_id')?.invalid">
+        <small *ngIf="assetForm.get('asset_id')?.errors?.['required']">Asset ID is required</small>
+        <small *ngIf="assetForm.get('asset_id')?.errors?.['pattern']">Use uppercase letters, numbers, dashes</small>
+      </div>
+    </div>
+
+    <!-- Category -->
+    <div class="form-group">
+      <label>📂 Category</label>
+      <select formControlName="asset_category">
+        <option value="">-- Select Category --</option>
+        <option>Laptop</option>
+        <option>Monitor</option>
+        <option>Mouse</option>
+        <option>Keyboard</option>
+        <option>Other</option>
+      </select>
+      <div class="error" *ngIf="assetForm.get('asset_category')?.touched && assetForm.get('asset_category')?.invalid">
+        <small>Category is required</small>
+      </div>
+    </div>
+
+    <!-- Condition -->
+    <div class="form-group">
+      <label>⭐ Condition</label>
+      <select formControlName="condition">
+        <option value="">-- Select Condition --</option>
+        <option value="new">New</option>
+        <option value="good">Good</option>
+        <option value="damaged">Damaged</option>
+      </select>
+      <div class="error" *ngIf="assetForm.get('condition')?.touched && assetForm.get('condition')?.invalid">
+        <small>Condition is required</small>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label>📄 Description</label>
+      <textarea formControlName="description" rows="4" placeholder="Enter asset description (optional)..."></textarea>
+      <div class="error"
+        *ngIf="assetForm.get('description')?.touched && assetForm.get('description')?.errors?.['maxlength']">
+        <small>Max 200 characters</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" [disabled]="loading || assetForm.invalid">
+        {{ loading ? '⏳ Creating...' : '🚀 Create Asset' }}
+      </button>
+    </div>
+
+    <p class="success" *ngIf="successMsg">✅ {{ successMsg }}</p>
+    <p class="error" *ngIf="errorMsg">❌ {{ errorMsg }}</p>
+  </form>
+</div>

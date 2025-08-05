@@ -1,0 +1,131 @@
+<app-header role="guest"></app-header>
+
+<main class="homepage">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-background">
+      <div class="geometric-shape shape-1"></div>
+      <div class="geometric-shape shape-2"></div>
+      <div class="geometric-shape shape-3"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-icon">🚀</span>
+        <span class="badge-text">Advanced IT Solutions</span>
+      </div>
+
+      <h1 class="hero-title fade-in">
+        <span class="title-gradient">IT Asset Management</span>
+        <span class="title-subtitle">System</span>
+      </h1>
+
+      <p class="hero-description fade-in">
+        Streamline your organization's IT infrastructure with our comprehensive
+        asset tracking and management platform. Monitor, assign, and optimize
+        your technology resources with ease.
+      </p>
+
+      <div class="hero-actions fade-in">
+        <a routerLink="/login" class="btn btn-primary">
+          <span class="btn-icon">🔑</span>
+          Get Started
+        </a>
+        <button class="btn btn-secondary" (click)="scrollToFeatures()">
+          <span class="btn-icon">📊</span>
+          Learn More
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Why Choose Our Platform?</h2>
+        <p class="section-description">
+          Powerful features designed to simplify IT asset management
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card slide-in" style="animation-delay: 0.1s">
+          <div class="feature-icon">📊</div>
+          <h3 class="feature-title">Real-time Tracking</h3>
+          <p class="feature-description">
+            Monitor all your IT assets in real-time with comprehensive
+            dashboard views and instant notifications.
+          </p>
+        </div>
+
+        <div class="feature-card slide-in" style="animation-delay: 0.2s">
+          <div class="feature-icon">🔒</div>
+          <h3 class="feature-title">Secure Access</h3>
+          <p class="feature-description">
+            Role-based access control ensures that sensitive information
+            is only accessible to authorized personnel.
+          </p>
+        </div>
+
+        <div class="feature-card slide-in" style="animation-delay: 0.3s">
+          <div class="feature-icon">⚙️</div>
+          <h3 class="feature-title">Easy Management</h3>
+          <p class="feature-description">
+            Intuitive interface makes asset assignment, tracking, and
+            maintenance simple for all team members.
+          </p>
+        </div>
+
+        <div class="feature-card slide-in" style="animation-delay: 0.4s">
+          <div class="feature-icon">📈</div>
+          <h3 class="feature-title">Analytics & Reports</h3>
+          <p class="feature-description">
+            Generate detailed reports and gain insights into asset
+            utilization and performance metrics.
+          </p>
+        </div>
+
+        <div class="feature-card slide-in" style="animation-delay: 0.5s">
+          <div class="feature-icon">👥</div>
+          <h3 class="feature-title">Multi-role Support</h3>
+          <p class="feature-description">
+            Support for different user roles including admins, department
+            heads, and employees with tailored experiences.
+          </p>
+        </div>
+
+        <div class="feature-card slide-in" style="animation-delay: 0.6s">
+          <div class="feature-icon">📱</div>
+          <h3 class="feature-title">Mobile Responsive</h3>
+          <p class="feature-description">
+            Access your asset management tools from any device with our
+            fully responsive design.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-background">
+      <div class="cta-pattern"></div>
+    </div>
+
+    <div class="cta-content">
+      <h2 class="cta-title">Ready to Transform Your IT Management?</h2>
+      <p class="cta-description">
+        Join thousands of organizations already using our platform to
+        streamline their IT operations.
+      </p>
+
+      <div class="cta-actions">
+        <a routerLink="/login" class="btn btn-primary btn-large">
+          <span class="btn-icon">🚀</span>
+          Start Managing Assets
+        </a>
+      </div>
+    </div>
+  </section>
+</main>

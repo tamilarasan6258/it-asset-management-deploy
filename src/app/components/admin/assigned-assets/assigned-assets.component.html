@@ -1,0 +1,76 @@
+<div class="assigned-assets-container">
+  <h2 class="page-title">📦 My Assigned Assets</h2>
+
+  <p *ngIf="successMsg" class="success">{{ successMsg }}</p>
+  <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+  <!-- Search & Filter Section -->
+  <div class="search-filter-section">
+    <div class="search-input-group">
+      <span class="search-icon">🔍</span>
+      <input [(ngModel)]="searchTerm" (ngModelChange)="resetPage()" placeholder="Search asset or category"
+        class="search-input" />
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-icon">📂</span>
+      <select [(ngModel)]="statusFilter" (ngModelChange)="resetPage()" class="filter-select">
+        <option value="">All Status</option>
+        <option value="active">Active</option>
+        <option value="requested">Return Requested</option>
+        <option value="returned">Returned</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="loading">Loading...</div>
+  <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+  <table *ngIf="!loading && filteredAssignments.length" class="asset-table">
+    <thead>
+      <tr>
+        <th>Asset Name</th>
+        <th>Asset ID</th>
+        <th>Category</th>
+        <th>Assigned By</th>
+        <th>Assigned At</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of paginatedAssignments">
+        <td>{{ item.asset_id?.asset_name }}</td>
+        <td>{{ item.asset_id?.asset_id }}</td>
+        <td>{{ item.asset_category }}</td>
+        <td>{{ item.assignedBy?.name }}</td>
+        <td>{{ formatDate(item.assignedAt) }}</td>
+        <td>
+          <ng-container [ngSwitch]="getStatus(item)">
+            <span *ngSwitchCase="'returned'" class="returned">✅ Returned</span>
+            <span *ngSwitchCase="'requested'" class="requested">⌛ Return Requested</span>
+            <span *ngSwitchDefault class="active">🟢 Active</span>
+          </ng-container>
+        </td>
+        <td>
+          <button *ngIf="getStatus(item) === 'active'" (click)="requestReturn(item._id)">
+            Request Return
+          </button>
+          <span *ngIf="getStatus(item) !== 'active'">--</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- Pagination Controls -->
+  <div *ngIf="!loading && totalPages > 1" class="pagination">
+    <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+      ◀ Prev
+    </button>
+    Page {{ currentPage }} of {{ totalPages }}
+    <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === totalPages">
+      Next ▶
+    </button>
+  </div>
+
+  <p *ngIf="!loading && !filteredAssignments.length" class="no-results">No assets match your criteria.</p>
+</div>

@@ -1,0 +1,72 @@
+<div class="dept-assigned-assets-container">
+  <h2 class="page-title">🏷️ Department - All Employee Assets</h2>
+
+  <!-- Search & Filter -->
+  <div class="search-filter-section">
+    <div class="search-input-group">
+      <span class="search-icon">🔍</span>
+      <input 
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="resetPage()"
+        placeholder="Search asset, category or employee"
+        class="search-input"
+      />
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-icon">📂</span>
+      <select [(ngModel)]="statusFilter" (ngModelChange)="resetPage()" class="filter-select">
+        <option value="">All Status</option>
+        <option value="assigned">Assigned</option>
+        <option value="returned">Returned</option>
+      </select>
+    </div>
+  </div>
+
+<div *ngIf="loading" class="loading">Loading...</div>
+<p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+<table *ngIf="!loading && paginatedAssignments.length" class="asset-table">
+  <thead>
+    <tr>
+      <th>Asset</th>
+      <th>Asset ID</th>
+      <th>Category</th>
+      <th>Employee</th>
+      <th>Assigned By</th>
+      <th>Assigned At</th>
+      <th>Returned At</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let a of paginatedAssignments">
+      <td>{{ a.asset_id?.asset_name || '-' }}</td>
+      <td>{{ a.asset_id?.asset_id || '-' }}</td>
+      <td>{{ a.asset_category }}</td>
+      <td>{{ a.assignedTo?.name || '-' }}</td>
+      <td>{{ a.assignedBy?.name || '-' }}</td>
+      <td>{{ a.assignedAt | date: 'short' }}</td>
+      <td>{{ a.returnedAt ? (a.returnedAt | date: 'short') : '--' }}</td>
+      <td>
+        <span [ngClass]="{ returned: a.returnedAt, assigned: !a.returnedAt }">
+          {{ a.returnedAt ? 'Returned' : 'Assigned' }}
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  <!-- Pagination -->
+<div *ngIf="!loading && totalPages > 1" class="pagination">
+  <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+    ◀ Prev
+  </button>
+  Page {{ currentPage }} of {{ totalPages }}
+  <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === totalPages">
+    Next ▶
+  </button>
+</div>
+
+<p *ngIf="!loading && !paginatedAssignments.length" class="no-results">No matching assets found.</p>
+</div>

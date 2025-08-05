@@ -1,0 +1,16 @@
+<app-header role="employee"></app-header>
+
+<h2>👤 Employee Dashboard</h2>
+
+
+<div class="user-info">
+  <p><strong>Name:</strong> {{ user?.name }}</p>
+  <p><strong>Department:</strong> {{ user?.department }}</p>
+</div>
+
+
+<div class="dashboard-placeholder">
+  <p>🎉 Welcome to your dashboard! You can manage your assets, submit requests, and track their status here.</p>
+</div>
+
+<router-outlet></router-outlet>

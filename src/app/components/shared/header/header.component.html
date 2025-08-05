@@ -1,0 +1,92 @@
+<header class="app-header">
+  <div class="header-container">
+    <div class="left-section">
+      <div class="logo-section">
+        <div class="logo">
+          <div class="logo-icon">🚀</div>
+          <span class="company-name">Assets</span>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="role !== 'guest'">
+      <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" [class.active]="isMobileMenuOpen">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <!-- Mobile overlay -->
+      <div class="mobile-overlay" [class.active]="isMobileMenuOpen" (click)="closeMobileMenu()"></div>
+
+      <nav class="role-nav" [class.mobile-open]="isMobileMenuOpen">
+
+        <div class="nav-section" *ngIf="role === 'admin'">
+
+          <div class="nav-links">
+            <a routerLink="/admin/create-user" class="nav-link" (click)="closeMobileMenu()">
+              Create User
+            </a>
+            <a routerLink="/admin/create-asset" class="nav-link" (click)="closeMobileMenu()">
+              Create Asset
+            </a>
+            <a routerLink="/admin/asset-list" class="nav-link" (click)="closeMobileMenu()">
+              Asset List
+            </a>
+            <a routerLink="/admin/admin-review-requests" class="nav-link" (click)="closeMobileMenu()">
+              Review Requests
+            </a>
+            <a routerLink="/admin/assign-asset" class="nav-link" (click)="closeMobileMenu()">
+              Assign Asset
+            </a>
+            <a routerLink="/admin/admin-return-requests" class="nav-link" (click)="closeMobileMenu()">
+              Asset Return
+            </a>
+            <a routerLink="/admin/employee-assets" class="nav-link" (click)="closeMobileMenu()">
+              All Employee Assets
+            </a>
+            <a (click)="logout()" class="logout-link">
+              Logout
+            </a>
+          </div>
+        </div>
+
+        <div class="nav-section" *ngIf="role === 'depthead'">
+
+          <div class="nav-links">
+            <a routerLink="/depthead/review-requests" class="nav-link" (click)="closeMobileMenu()">
+              Review Requests
+            </a>
+            <a routerLink="/depthead/dept-assigned-assets" class="nav-link" (click)="closeMobileMenu()">
+              Dept Assets
+            </a>
+            <a routerLink="/depthead/dept-return-review" class="nav-link" (click)="closeMobileMenu()">
+              Return Requests
+            </a>
+            <a (click)="logout()" class="logout-link">
+              Logout
+            </a>
+          </div>
+        </div>
+
+        <div class="nav-section" *ngIf="role === 'employee'">
+
+          <div class="nav-links">
+            <a routerLink="/employee/assigned-assets" class="nav-link" (click)="closeMobileMenu()">
+              My Assets
+            </a>
+            <a routerLink="/employee/request-asset" class="nav-link" (click)="closeMobileMenu()">
+              Request Asset
+            </a>
+            <a routerLink="/employee/track-requests" class="nav-link" (click)="closeMobileMenu()">
+              Track Requests
+            </a>
+            <a (click)="logout()" class="logout-link">
+              Logout
+            </a>
+          </div>
+        </div>
+      </nav>
+    </ng-container>
+  </div>
+</header>

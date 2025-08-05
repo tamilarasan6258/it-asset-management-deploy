@@ -1,0 +1,68 @@
+<div class="admin-review-requests-container">
+  <h3>📦 Asset Category Summary</h3>
+
+  <!-- <div *ngIf="summaryLoading">Loading asset summary...</div> -->
+  <p *ngIf="summaryErrorMsg" class="error">{{ summaryErrorMsg }}</p>
+
+  <table *ngIf=" summary.length" class="summary-table">
+    <thead>
+      <tr>
+        <th>Asset Category</th>
+        <th>✅ Available</th>
+        <th>⏳ Approved (Pending Assignment)</th>
+        <th>🧾 Admin Approved Only</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of summary">
+        <td>{{ item.asset_category }}</td>
+        <td>{{ item.available_count }}</td>
+        <td>{{ item.pending_assignment_count }}</td>
+        <td>{{ item.admin_only_approved_count }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!summaryLoading && !summary.length">No summary data available.</p>
+
+  <h2>📨 Admin Review Requests</h2>
+
+  <div *ngIf="loading">Loading forwarded requests...</div>
+  <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+  <table *ngIf="!loading && requests.length" class="request-table">
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>Asset Category</th>
+        <th>Reason</th>
+        <th>Dept Head Status</th>
+        <th>Admin Status</th>
+        <th>Admin Remarks</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let req of requests">
+        <td>{{ req.user?.name }}</td>
+        <td>{{ req.asset_category }}</td>
+        <td>{{ req.reason }}</td>
+        <td>{{ req.status }}</td>
+        <td>{{ req.adminStatus }}</td>
+        <td>{{ req.adminRemarks || '—' }}</td>
+        <td *ngIf="req.adminStatus === 'pending'">
+          <form [formGroup]="remarkForms[req._id]">
+            <input formControlName="remark" placeholder="Admin remarks" />
+            <div class="button-group">
+              <button (click)="reviewRequest(req._id, 'approved')" type="button">✅ Approve</button>
+              <button (click)="reviewRequest(req._id, 'rejected')" type="button">❌ Reject</button>
+            </div>
+          </form>
+        </td>
+        <td *ngIf="req.adminStatus !== 'pending'">Reviewed</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!loading && !requests.length">No forwarded requests.</p>
+</div>

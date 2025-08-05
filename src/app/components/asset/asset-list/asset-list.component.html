@@ -1,0 +1,135 @@
+<div class="asset-list-container">
+  <h2 class="page-title">📦 Asset Inventory</h2>
+
+  <div class="counts-grid" *ngIf="assetCounts.length">
+    <div class="count-card" *ngFor="let item of assetCounts">
+      <h4>{{ item.asset_category }}</h4>
+      <p>Total: {{ item.total_count }}</p>
+      <p>Available: {{ item.available_count }}</p>
+    </div>
+  </div>
+
+  <!-- Search & Filter Section -->
+  <div class="search-filter-section">
+    <div class="search-input-group">
+      <span class="search-icon">🔍</span>
+      <input [(ngModel)]="searchTerm" (ngModelChange)="resetPage()" placeholder="Search asset name or ID"
+        class="search-input" />
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-icon">📁</span>
+      <select [(ngModel)]="categoryFilter" (ngModelChange)="resetPage()" class="filter-select">
+        <option value="">All Categories</option>
+        <option value="Laptop">Laptop</option>
+        <option value="Monitor">Monitor</option>
+        <option value="Mouse">Mouse</option>
+        <option value="Keyboard">Keyboard</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="loading">Loading assets...</div>
+  <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+  <!-- Asset Table -->
+  <table *ngIf="!loading && filteredAssets.length" class="asset-table">
+    <thead>
+      <tr>
+        <th>Asset Name</th>
+        <th>Asset ID</th>
+        <th>Category</th>
+        <th>Condition</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let asset of paginatedAssets">
+        <!-- Asset Name -->
+        <td>
+          <input *ngIf="editingAsset?._id === asset._id; else viewAssetName" [(ngModel)]="editForm.value.asset_name"
+            (ngModelChange)="updateFormControl('asset_name', $event)" class="inline-edit-input"
+            placeholder="Asset Name" />
+          <ng-template #viewAssetName>{{ asset.asset_name }}</ng-template>
+        </td>
+
+        <!-- Asset ID (Read-only) -->
+        <td>{{ asset.asset_id }}</td>
+
+        <!-- Asset Category -->
+        <td>
+          <select *ngIf="editingAsset?._id === asset._id; else viewCategory" [(ngModel)]="editForm.value.asset_category"
+            (ngModelChange)="updateFormControl('asset_category', $event)" class="inline-edit-select">
+            <option value="Laptop">Laptop</option>
+            <option value="Monitor">Monitor</option>
+            <option value="Mouse">Mouse</option>
+            <option value="Keyboard">Keyboard</option>
+            <option value="Other">Other</option>
+          </select>
+          <ng-template #viewCategory>{{ asset.asset_category }}</ng-template>
+        </td>
+
+        <!-- Condition -->
+        <td>
+          <select *ngIf="editingAsset?._id === asset._id; else viewCondition" [(ngModel)]="editForm.value.condition"
+            (ngModelChange)="updateFormControl('condition', $event)" class="inline-edit-select">
+            <option value="new">New</option>
+            <option value="good">Good</option>
+            <option value="damaged">Damaged</option>
+          </select>
+          <ng-template #viewCondition>{{ asset.condition }}</ng-template>
+        </td>
+
+        <!-- Description -->
+        <td>
+          <input *ngIf="editingAsset?._id === asset._id; else viewDescription" [(ngModel)]="editForm.value.description"
+            (ngModelChange)="updateFormControl('description', $event)" class="inline-edit-input"
+            placeholder="Description" />
+          <ng-template #viewDescription>{{ asset.description || '—' }}</ng-template>
+        </td>
+
+        <!-- Status (Read-only) -->
+        <td>
+          <span class="status-badge"
+            [ngClass]="{ 'status-assigned': asset.isAssigned, 'status-available': !asset.isAssigned }">
+            {{ asset.isAssigned ? 'Assigned' : 'Available' }}
+          </span>
+        </td>
+
+        <!-- Actions -->
+        <td>
+          <div *ngIf="editingAsset?._id === asset._id; else viewActions" class="inline-edit-actions">
+            <!-- <button (click)="saveEdit()" [disabled]="editForm.invalid" class="button-save">💾 Save</button> -->
+            <button (click)="saveEdit()" [disabled]="editForm.invalid || !hasChanges()" class="button-save">
+              💾 Save
+            </button>
+
+            <button (click)="cancelEdit()" class="button-cancel">❌ Cancel</button>
+          </div>
+          <ng-template #viewActions>
+            <button (click)="editAsset(asset)" [disabled]="asset.isAssigned" class="button-edit">✏️ Edit</button>
+            <button (click)="deleteAsset(asset._id)" [disabled]="asset.isAssigned" class="button-delete">🗑️
+              Delete</button>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <div *ngIf="!loading && totalPages > 1" class="pagination">
+    <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+      ◀ Prev
+    </button>
+    Page {{ currentPage }} of {{ totalPages }}
+    <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === totalPages">
+      Next ▶
+    </button>
+  </div>
+
+  <p *ngIf="!loading && !filteredAssets.length" class="no-results">No matching assets found.</p>
+</div>

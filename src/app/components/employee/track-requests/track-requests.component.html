@@ -1,0 +1,57 @@
+<div class="track-requests-container">
+  <h2 class="page-title">📅 My Asset Requests</h2>
+
+  <div *ngIf="loading">Loading requests...</div>
+  <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+  <div class="filters">
+    <input type="text" [(ngModel)]="searchTerm" (input)="onSearchChange()" placeholder="🔍 Search category or reason..."
+      class="search-input" />
+
+    <select [(ngModel)]="statusFilter" (change)="onSearchChange()" class="filter-select">
+      <option value="">All Statuses</option>
+      <option value="pending">Pending</option>
+      <option value="approved">Approved</option>
+      <option value="rejected">Rejected</option>
+    </select>
+  </div>
+
+  <table *ngIf="!loading && requests.length" class="request-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Reason</th>
+        <th>Status</th>
+        <th>Requested At</th>
+        <th>Asset Name</th>
+        <th>Asset ID</th>
+        <th>Assigned By</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let req of requests">
+        <td>{{ req.asset_category }}</td>
+        <td>{{ req.reason }}</td>
+        <td>
+          <span [ngClass]="getDisplayStatus(req).toLowerCase()">
+            {{ getDisplayStatus(req) }}
+          </span>
+        </td>
+        <td>{{ req.createdAt | date: 'medium' }}</td>
+
+        <td>{{ req.assignment?.asset_id?.asset_name || '-' }}</td>
+        <td>{{ req.assignment?.asset_id?.asset_id || '-' }}</td>
+        <td>{{ req.assignment?.assignedBy?.name || '-' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="goToPage(page - 1)" [disabled]="page === 1">⬅ Prev</button>
+    <span>Page {{ page }} of {{ totalPages }}</span>
+    <button (click)="goToPage(page + 1)" [disabled]="page === totalPages">Next ➡</button>
+  </div>
+
+
+  <div *ngIf="!loading && !requests.length" class="no-results">You have not submitted any requests.</div>

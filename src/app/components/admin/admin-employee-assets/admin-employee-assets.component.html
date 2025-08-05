@@ -1,0 +1,60 @@
+<div class="admin-employee-assets-container">
+  <h2>🧑‍💼 All Employee Assets</h2>
+
+  <!-- Search and Filter Section -->
+  <div class="filters">
+    <input [(ngModel)]="searchTerm" (ngModelChange)="resetPage()" placeholder="🔍 Search name, asset or category" />
+    <select [(ngModel)]="statusFilter" (ngModelChange)="resetPage()">
+      <option value="">📁 All Statuses</option>
+      <option value="assigned">Assigned</option>
+      <option value="returned">Returned</option>
+    </select>
+  </div>
+
+  <div *ngIf="loading">Loading...</div>
+  <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+  <table *ngIf="!loading && filteredAssets.length">
+    <thead>
+      <tr>
+        <th>Asset</th>
+        <th>Asset ID</th>
+        <th>Category</th>
+        <th>Assigned To</th>
+        <th>Assigned By</th>
+        <th>Assigned At</th>
+        <th>Returned At</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of paginatedAssets">
+        <td>{{ a.asset_id?.asset_name || '-' }}</td>
+        <td>{{ a.asset_id?.asset_id || '-' }}</td>
+        <td>{{ a.asset_category }}</td>
+        <td>{{ a.assignedTo?.name }}</td>
+        <td>{{ a.assignedBy?.name }}</td>
+        <td>{{ formatDate(a.assignedAt) }}</td>
+        <td>{{ a.returnedAt ? formatDate(a.returnedAt) : '--' }}</td>
+        <td>
+          <span [ngClass]="{ returned: a.returnedAt, assigned: !a.returnedAt }">
+            {{ getStatus(a) | titlecase }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && !filteredAssets.length" class="no-results">No records match your criteria.</div>
+
+  <!-- Pagination Controls -->
+  <div *ngIf="!loading && totalPages > 1" class="pagination">
+    <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+      ◀ Prev
+    </button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === totalPages">
+      Next ▶
+    </button>
+  </div>
+</div>

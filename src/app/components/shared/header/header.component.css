@@ -1,0 +1,444 @@
+/* Container for the whole header */
+.app-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  min-height: 60px;
+}
+
+/* Logo Section */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-icon {
+  font-size: 2rem;
+  margin-right: 10px;
+}
+
+.company-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Navigation */
+.role-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 10px;
+  padding: 5px 10px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.logout-link {
+  font-weight: bold;
+  color: #e74c3c;
+  text-decoration: none;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.logout-link:hover {
+  color: #c0392b;
+}
+
+/* Header container */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+/* Navigation sections */
+.nav-section {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-icon {
+  margin-right: 5px;
+  font-size: 1rem;
+}
+
+/* Mobile menu toggle button */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hamburger-line {
+  width: 25px;
+  height: 3px;
+  background-color: #ffffff;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+/* =================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ================================= */
+
+/* DESKTOP (1024px and above) - Default styles above apply */
+
+/* TABLET (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .app-header {
+    padding: 10px 15px;
+  }
+
+  .company-name {
+    font-size: 1.3rem;
+  }
+
+  .logo-icon {
+    font-size: 1.8rem;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .nav-link {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    margin: 0 5px;
+  }
+
+  .nav-icon {
+    font-size: 0.9rem;
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+  }
+
+  .role-nav {
+    display: flex;
+  }
+}
+
+/* MOBILE (320px to 767px) */
+@media (max-width: 767px) {
+  .app-header {
+    padding: 8px 15px;
+    min-height: 55px;
+    position: relative;
+  }
+
+  .company-name {
+    font-size: 1.2rem;
+  }
+
+  .logo-icon {
+    font-size: 1.5rem;
+    margin-right: 8px;
+  }
+
+  /* Show mobile menu toggle */
+  .mobile-menu-toggle {
+    display: flex;
+    order: 2;
+    z-index: 1002;
+    position: relative;
+  }
+
+  /* Mobile overlay */
+  .mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    cursor: pointer;
+  }
+
+  .mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Right-side slide-out navigation */
+  .role-nav {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    /* Hidden by default */
+    width: 300px;
+    height: 100vh;
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: -4px 0 25px rgba(102, 126, 234, 0.4);
+    z-index: 1001;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+  }
+
+  /* Show navigation when mobile menu is open */
+  .role-nav.mobile-open {
+    right: 0;
+    /* Slide in from right */
+  }
+
+  /* Close button for mobile sidebar */
+  .sidebar-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    color: #ffffff;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #34495e;
+    border: none;
+    transition: all 0.3s ease;
+    z-index: 1003;
+  }
+
+  .sidebar-close-btn:hover {
+    background-color: #e74c3c;
+    transform: rotate(90deg);
+  }
+
+  .sidebar-close-btn:active {
+    transform: rotate(90deg) scale(0.95);
+  }
+
+  /* Hide any pseudo-element close buttons */
+  .role-nav::after {
+    display: none !important;
+  }
+
+  /* Mobile sidebar header */
+  .nav-section {
+    width: 100%;
+    margin-top: 50px;
+    /* Space for close button */
+  }
+
+  .nav-section:first-child {
+    border-bottom: 1px solid #34495e;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .nav-link {
+    padding: 15px 20px;
+    width: 100%;
+    text-align: left;
+    border-radius: 8px;
+    margin: 0 0 5px 0;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    background-color: transparent;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .nav-link:hover {
+    background-color: #34495e;
+    transform: translateX(5px);
+  }
+
+  .nav-link:active {
+    transform: translateX(2px);
+  }
+
+  .logout-link {
+    padding: 15px 20px;
+    width: 100%;
+    border: 2px solid #e74c3c;
+    border-radius: 8px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(231, 76, 60, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .logout-link:hover {
+    background-color: #e74c3c;
+    color: #ffffff;
+    transform: translateX(5px);
+  }
+
+  .nav-icon {
+    margin-right: 12px;
+    font-size: 1.2rem;
+    width: 25px;
+    text-align: center;
+  }
+
+  /* Prevent body scroll when sidebar is open */
+  body.mobile-menu-open {
+    overflow: hidden;
+  }
+}
+
+/* SMALL MOBILE (320px to 480px) */
+@media (max-width: 480px) {
+  .app-header {
+    padding: 8px 10px;
+  }
+
+  .company-name {
+    font-size: 1.1rem;
+  }
+
+  .logo-icon {
+    font-size: 1.3rem;
+    margin-right: 6px;
+  }
+
+  .hamburger-line {
+    width: 20px;
+    height: 2px;
+  }
+
+  .nav-link {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+
+  .logout-link {
+    padding: 10px 12px;
+  }
+}
+
+/* LARGE DESKTOP (1200px and above) */
+@media (min-width: 1200px) {
+  .app-header {
+    padding: 15px 30px;
+  }
+
+  .company-name {
+    font-size: 1.6rem;
+  }
+
+  .logo-icon {
+    font-size: 2.2rem;
+    margin-right: 12px;
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+
+  .nav-link {
+    padding: 8px 15px;
+    font-size: 1rem;
+    margin: 0 8px;
+  }
+
+  .nav-icon {
+    font-size: 1.1rem;
+    margin-right: 8px;
+  }
+}
+
+/* =================================
+   MOBILE MENU ANIMATIONS
+   ================================= */
+
+/* Hamburger menu animations */
+.mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+  transform: rotate(-45deg) translate(-7px, 6px);
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+  transform: rotate(45deg) translate(-6px, -6px);
+}
+
+/* Smooth transitions for all interactive elements */
+.nav-link,
+.logout-link,
+.hamburger-line {
+  transition: all 0.3s ease;
+}
+
+/* Focus states for accessibility */
+.nav-link:focus,
+.logout-link:focus,
+.mobile-menu-toggle:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .app-header {
+    background-color: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+
+  .role-nav {
+    display: none !important;
+  }
+}

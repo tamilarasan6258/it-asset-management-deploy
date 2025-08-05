@@ -1,0 +1,63 @@
+/* Container Styles */
+.dept-return-review-container {
+  min-height: 100vh;
+  padding: var(--spacing-6);
+  background: linear-gradient(135deg, #f0f2f5 0%, #c5cae9 100%);
+}
+
+/* Table Styles */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-6);
+  background: var(--white);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--border-radius-lg);
+}
+
+th {
+  background: var(--primary-gradient);
+  color: var(--white);
+  padding: var(--spacing-4);
+  text-align: left;
+  font-weight: 600;
+}
+
+td {
+  padding: var(--spacing-4);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+tr:hover {
+  background-color: var(--gray-50);
+  transition: background-color var(--transition-fast);
+}
+
+/* Button Styles */
+button {
+  background: var(--success);
+  color: var(--white);
+  padding: var(--spacing-2) var(--spacing-4);
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+button:hover {
+  background-color: rgb(12, 112, 4);
+  transform: translateY(-2px);
+}
+
+/* Success Message Styles */
+.success {
+  color: var(--success-dark);
+  background-color: rgba(16, 185, 129, 0.1);
+  padding: var(--spacing-3);
+  border-left: 4px solid var(--success);
+  border-radius: var(--border-radius);
+  margin: var(--spacing-6) 0;
+  text-align: center;
+  font-size: var(--font-size-lg);
+}

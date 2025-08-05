@@ -1,0 +1,38 @@
+<div class="admin-return-requests-container">
+  <h2>📦 Admin - Pending Returns</h2>
+
+  <table *ngIf="returns.length">
+    <thead>
+      <tr>
+        <th>Asset</th>
+        <th>Employee</th>
+        <th>Condition</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of returns">
+        <td>{{ r.asset_id?.asset_name }}</td>
+        <td>{{ r.assignedTo?.name }}</td>
+        <td>
+          <select [(ngModel)]="r.condition">
+            <option value="" disabled selected>Select</option>
+            <option value="good">Good</option>
+            <option value="damaged">Damaged</option>
+          </select>
+          <div class="error" *ngIf="conditionErrors[r._id]">
+            {{ conditionErrors[r._id] }}
+          </div>
+        </td>
+        <td>
+          <button (click)="finalizeReturn(r._id, r.condition)" [disabled]="!r.condition">
+            ✅ Finalize
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!returns.length">No pending returns available.</p>
+  <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
+</div>

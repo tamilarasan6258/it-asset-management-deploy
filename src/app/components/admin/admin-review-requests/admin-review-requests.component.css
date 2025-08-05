@@ -1,0 +1,361 @@
+/* Container Styles */
+.admin-review-requests-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: var(--spacing-6);
+}
+
+/* Page Titles */
+h2,
+h3 {
+  text-align: center;
+  color: var(--primary-dark);
+  margin-bottom: var(--spacing-6);
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: slideInDown 0.8s ease-out;
+}
+
+h2 {
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--spacing-8);
+}
+
+h3 {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--spacing-6);
+  margin-top: var(--spacing-8);
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading and Error Messages */
+.error {
+  color: var(--error);
+  background-color: rgba(239, 68, 68, 0.1);
+  padding: var(--spacing-3);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--error);
+  margin-bottom: var(--spacing-4);
+}
+
+/* Table Styles */
+table.summary-table,
+table.request-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: var(--spacing-6);
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+thead th {
+  background: var(--primary-gradient);
+  color: var(--white);
+  padding: var(--spacing-4);
+  text-align: left;
+  font-weight: 600;
+  font-size: var(--font-size-base);
+}
+
+tbody td {
+  padding: var(--spacing-4);
+  border-bottom: 1px solid var(--gray-200);
+  vertical-align: top;
+}
+
+tbody tr {
+  transition: background-color var(--transition-normal), transform var(--transition-fast);
+}
+
+tbody tr:hover {
+  background-color: var(--gray-50);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Button Styles */
+button {
+  cursor: pointer;
+  transition: transform var(--transition-fast), background-color var(--transition-fast);
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border: none;
+  font-weight: 500;
+  min-width: 80px;
+  margin-right: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+button[type="button"]:first-of-type {
+  background: var(--success);
+  color: var(--white);
+}
+
+button[type="button"]:last-of-type {
+  background: var(--error);
+  color: var(--white);
+}
+
+.button-disabled {
+  background: var(--gray-300) !important;
+  color: var(--gray-600) !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  align-items: flex-start;
+}
+
+.button-group {
+  display: flex;
+  gap: var(--spacing-2);
+  align-items: center;
+}
+
+form input {
+  padding: var(--spacing-2);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  width: 200px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
+}
+
+form input::placeholder {
+  color: var(--gray-500);
+}
+
+/* Status and Content Styling */
+td:nth-child(4),
+td:nth-child(5) {
+  font-weight: 600;
+}
+
+/* No Results Message */
+p:not(.error) {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  color: var(--gray-500);
+  background: var(--white);
+  padding: var(--spacing-6);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  margin: var(--spacing-4) 0;
+}
+
+/* Loading Message */
+div[ng-reflect-ng-if="true"],
+div:has(+ p.error):not(.error) {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  color: var(--primary-color);
+  background: var(--white);
+  padding: var(--spacing-6);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  margin: var(--spacing-6) 0;
+  animation: pulse 2s infinite;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive Design for Mobile Tables */
+@media (max-width: 768px) {
+  .admin-review-requests-container {
+    padding: var(--spacing-3);
+  }
+
+  h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-6);
+  }
+
+  h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-4);
+  }
+
+  /* Mobile table layout */
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tbody tr {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--spacing-4);
+    padding: var(--spacing-3);
+  }
+
+  tbody tr:hover {
+    transform: none;
+    box-shadow: var(--shadow-md);
+  }
+
+  td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  td:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+
+  /* Summary table mobile labels */
+  .summary-table td:nth-of-type(1):before {
+    content: "Asset Category";
+  }
+
+  .summary-table td:nth-of-type(2):before {
+    content: "Available";
+  }
+
+  .summary-table td:nth-of-type(3):before {
+    content: "Pending Assignment";
+  }
+
+  .summary-table td:nth-of-type(4):before {
+    content: "Admin Approved Only";
+  }
+
+  /* Request table mobile labels */
+  .request-table td:nth-of-type(1):before {
+    content: "Employee";
+  }
+
+  .request-table td:nth-of-type(2):before {
+    content: "Asset Category";
+  }
+
+  .request-table td:nth-of-type(3):before {
+    content: "Reason";
+  }
+
+  .request-table td:nth-of-type(4):before {
+    content: "Dept Head Status";
+  }
+
+  .request-table td:nth-of-type(5):before {
+    content: "Admin Status";
+  }
+
+  .request-table td:nth-of-type(6):before {
+    content: "Admin Remarks";
+  }
+
+  .request-table td:nth-of-type(7):before {
+    content: "Actions";
+  }
+
+  form {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  form input {
+    width: 100%;
+    margin-bottom: var(--spacing-2);
+  }
+
+  button {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-1) var(--spacing-2);
+    min-width: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-review-requests-container {
+    padding: var(--spacing-2);
+  }
+
+  h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  h3 {
+    font-size: var(--font-size-lg);
+  }
+
+  button {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-1);
+    min-width: 60px;
+  }
+}

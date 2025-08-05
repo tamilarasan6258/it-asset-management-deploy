@@ -1,0 +1,31 @@
+<div class="request-asset-container">
+  <h2 class="page-title">📝 Request New Asset</h2>
+
+  <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>📂 Asset Category</label>
+      <select formControlName="asset_category">
+        <option value="">-- Select Category --</option>
+        <option>Laptop</option>
+        <option>Monitor</option>
+        <option>Mouse</option>
+        <option>Keyboard</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>📝 Reason</label>
+      <textarea formControlName="reason" rows="4" placeholder="Explain why you need this asset..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" [disabled]="loading || requestForm.invalid">
+        {{ loading ? '⏳ Submitting...' : '🚀 Submit Request' }}
+      </button>
+    </div>
+
+    <p class="success" *ngIf="successMsg">✅ {{ successMsg }}</p>
+    <p class="error" *ngIf="errorMsg">❌ {{ errorMsg }}</p>
+  </form>
+</div>

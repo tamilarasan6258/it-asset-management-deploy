@@ -1,0 +1,80 @@
+<div class="review-requests-container">
+  <h2 class="page-title">📝 Review Asset Requests</h2>
+
+  <!-- Filter & Search -->
+  <div class="search-filter-section">
+    <div class="search-input-group">
+      <span class="search-icon">🔍</span>
+      <input [(ngModel)]="searchTerm" (ngModelChange)="resetPage()" placeholder="Search employee, category, or reason"
+        class="search-input" />
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-icon">📂</span>
+      <select [(ngModel)]="statusFilter" (ngModelChange)="resetPage()" class="filter-select">
+        <option value="">All Status</option>
+        <option value="pending">Pending</option>
+        <option value="approved">Approved</option>
+        <option value="rejected">Rejected</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="loading">Loading requests...</div>
+  <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+  <table *ngIf="!loading && paginatedRequests.length" class="request-table">
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>Asset Category</th>
+        <th>Reason</th>
+        <th>Status</th>
+        <th>Action</th>
+        <th>Forward</th>
+        <th>Admin Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let req of paginatedRequests">
+        <td>{{ req.user?.name }}</td>
+        <td>{{ req.asset_category }}</td>
+        <td>{{ req.reason }}</td>
+        <td>{{ req.status }}</td>
+        <td>
+          <button (click)="updateStatus(req._id, 'approved')" [disabled]="req.status !== 'pending'"
+            [class]="req.status !== 'pending' ? 'button-disabled' : 'button-approve'">✅ Approve</button>
+          <button (click)="updateStatus(req._id, 'rejected')" [disabled]="req.status !== 'pending'"
+            [class]="req.status !== 'pending' ? 'button-disabled' : 'button-reject'">❌ Reject</button>
+        </td>
+        <td>
+          <button (click)="sendToAdmin(req._id)" [disabled]="req.forwardedToAdmin"
+            [class]="req.forwardedToAdmin ? 'button-disabled' : 'button-forward'">📤 Send</button>
+        </td>
+        <td>
+          <div *ngIf="req.forwardedToAdmin">
+            <span *ngIf="req.adminStatus === 'pending'">⏳ Pending</span>
+            <span *ngIf="req.adminStatus === 'approved'">✅ Approved</span>
+            <span *ngIf="req.adminStatus === 'rejected'">❌ Rejected</span>
+            <br />
+            <small *ngIf="req.adminRemarks">📝 {{ req.adminRemarks }}</small>
+          </div>
+          <span *ngIf="!req.forwardedToAdmin">—</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <div *ngIf="!loading && totalPages > 1" class="pagination">
+    <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+      ◀ Prev
+    </button>
+    Page {{ currentPage }} of {{ totalPages }}
+    <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === totalPages">
+      Next ▶
+    </button>
+  </div>
+
+  <p *ngIf="!loading && !paginatedRequests.length" class="no-results">No matching requests found.</p>
+</div>
