@@ -27,7 +27,6 @@ app.use(cookieParser());
 
 
 const allowedOrigins = [
-  'http://localhost:4200',                // for local dev
   'https://it-asset.netlify.app'          // your Netlify frontend
 ];
 
