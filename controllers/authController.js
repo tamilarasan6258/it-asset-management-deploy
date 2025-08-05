@@ -39,8 +39,8 @@ exports.login = async (req, res) => {
     // Set HttpOnly cookie
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'Lax',
+      secure: true,
+      sameSite: 'None',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
 
@@ -95,8 +95,8 @@ exports.refreshAccessToken = async (req, res) => {
 exports.logout = (req, res) => {
   res.clearCookie('refreshToken', {
     httpOnly: true,
-    secure: false,       // use true in production with HTTPS
-    sameSite: 'Lax',
+    secure: true,       // use true in production with HTTPS
+    sameSite: 'None',
   });
 
   res.json({ message: 'Logged out successfully' });
