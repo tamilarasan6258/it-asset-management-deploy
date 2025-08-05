@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 // ✅ Allow frontend origin + allow credentials
 app.use(cors({
-  origin: 'http://localhost:4200',  // ✅ Replace with your Angular app's origin
+  origin: 'http://localhost:4200' || 'https://it-asset.netlify.app',  // ✅ Replace with your Angular app's origin
   credentials: true                 // ✅ Allow sending cookies
 }));
 

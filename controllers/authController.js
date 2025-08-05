@@ -119,6 +119,7 @@ exports.forgotPassword = async (req, res) => {
     user.resetPasswordExpires = expiry;
     await user.save();
 
+    
     const resetLink = `${process.env.FRONTEND_URL}/reset-password/${token}`;
     console.log("1");
     console.log(resetLink);
