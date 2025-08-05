@@ -120,7 +120,7 @@ exports.forgotPassword = async (req, res) => {
     await user.save();
 
     
-    const resetLink = `${process.env.FRONTEND_URL}/reset-password/${token}`;
+    const resetLink = `https://it-asset.netlify.app/reset-password/${token}`;
     console.log("1");
     console.log(resetLink);
     await sendResetPasswordEmail(user.email, user.name, resetLink);
