@@ -23,7 +23,7 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
         <div class="form-group">
           <div class="input-wrapper">
-            <span class="input-icon">📧</span>
+            
             <input type="email" formControlName="email" placeholder="Enter your email" class="form-input"
               [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" />
           </div>
@@ -35,7 +35,7 @@
 
         <div class="form-group">
           <div class="input-wrapper">
-            <span class="input-icon">🔒</span>
+            
             <input type="password" formControlName="password" placeholder="Enter your password" class="form-input"
               [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" />
           </div>

@@ -28,18 +28,20 @@ export class ForgotPasswordComponent {
   submit() {
     if (this.form.invalid) return;
 
-    console.log("3")
-
+    this.loading = true;
+    this.success = '';
     this.authService.forgotPassword(this.form.value.email).subscribe({
       next: () => {
         console.log("1");
         this.success = 'Reset link sent to your email.';
         this.error = '';
+        this.loading = false; 
       },
       error: (err) => {
         console.log("2")
         this.error = err.error?.message || 'Failed to send reset email.';
         this.success = '';
+        this.loading = false; 
       },
     });
   }
