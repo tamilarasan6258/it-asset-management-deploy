@@ -20,9 +20,26 @@ app.use(cookieParser());
 
 
 // ✅ Allow frontend origin + allow credentials
+// app.use(cors({
+//   origin: 'http://localhost:4200' || 'https://it-asset.netlify.app',  // ✅ Replace with your Angular app's origin
+//   credentials: true                 // ✅ Allow sending cookies
+// }));
+
+
+const allowedOrigins = [
+  'http://localhost:4200',                // for local dev
+  'https://it-asset.netlify.app'          // your Netlify frontend
+];
+
 app.use(cors({
-  origin: 'http://localhost:4200' || 'https://it-asset.netlify.app',  // ✅ Replace with your Angular app's origin
-  credentials: true                 // ✅ Allow sending cookies
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true // important if you're using cookies or sessions
 }));
 
 setupSwagger(app);
